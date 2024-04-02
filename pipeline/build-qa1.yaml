@@ -16,6 +16,7 @@ steps:
         - '-c'
         - |
           set -e  # Exit on errors
+          git fetch gen-ai-test
           git diff
           git diff --cached
           git diff HEAD
