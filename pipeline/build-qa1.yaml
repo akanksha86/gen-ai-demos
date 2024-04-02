@@ -15,11 +15,11 @@ steps:
     args: 
         - '-c'
         - |
-        set -e  # Exit on errors
-        git fetch origin
-        git diff
-        git diff --cached
-        git diff HEAD
+          set -e  # Exit on errors
+          git fetch origin
+          git diff
+          git diff --cached
+          git diff HEAD
     secretEnv: ['GITHUB_TOKEN']
        
   - id: get the MR ID
