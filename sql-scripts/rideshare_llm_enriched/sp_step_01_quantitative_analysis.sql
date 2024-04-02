@@ -115,11 +115,11 @@ SELECT driver_id,
        STRING_AGG(DISTINCT location_pickup.zone,", ")  AS distinct_pickup_location_zones,
        STRING_AGG(DISTINCT location_dropoff.zone,", ") AS distinct_dropoff_location_zones,
        
-       COUNTIF(location_pickup.service_zone = 'EWR'
-               OR location_dropoff.service_zone = 'EWR') AS crosses_state_line_count,
+       COUNTIF(location_pickup.service_zone in ('EWR','Baro Zone')
+               OR location_dropoff.service_zone in ('EWR','Baro Zone')) AS crosses_state_line_count,
 
-       COUNTIF(location_pickup.service_zone = 'EWR'
-               OR location_dropoff.service_zone = 'EWR'
+       COUNTIF(location_pickup.service_zone in ('EWR','Baro Zone')
+               OR location_dropoff.service_zone in ('EWR','Baro Zone')
                OR location_pickup.service_zone = 'Airports'
                OR location_dropoff.service_zone = 'Airports') AS airport_count,
 
