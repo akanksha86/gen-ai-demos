@@ -90,7 +90,7 @@ rules:
     dimension: integrity
     params:
       custom_sql_expr: |-
-        $column BETWEEN 0 AND 100
+        $column BETWEEN 0 AND 200
 
   VALID_PICKUP_DATE:
     rule_type: CUSTOM_SQL_EXPR
