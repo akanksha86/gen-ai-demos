@@ -10,9 +10,17 @@ steps:
     args: ['fetch', 'origin', 'gen-ai-test'] 
     secretEnv: ['GITHUB_TOKEN']
     
-  - id: calculate git diff
+  - id: Calculate the diff
     name: gcr.io/cloud-builders/git
-    args: ['diff', 'main', 'gen-ai-test'] 
+    entrypoint: bash
+    args: 
+        - '-c'
+        - |
+          set -e  # Exit on errors
+          git fetch
+          git diff origin/gen-ai-test
+          git diff --cached
+          git diff HEAD
     secretEnv: ['GITHUB_TOKEN']
        
   - id: get the MR ID
