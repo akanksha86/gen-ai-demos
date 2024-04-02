@@ -7,12 +7,21 @@ steps:
     
   - id: Fetch latest changes from the master branch
     name: gcr.io/cloud-builders/git
-    args: ['fetch', 'origin', 'master'] 
+    args: ['fetch', 'origin', 'gen-ai-test'] 
     secretEnv: ['GITHUB_TOKEN']
-
-  - id: Fetch latest changes from the master branch
+    
+  - id: Calculate the diff
     name: gcr.io/cloud-builders/git
-    args: ['diff', 'origin/master']
+    entrypoint: bash
+    args: 
+        - '-c'
+        - |
+          set -e  # Exit on errors
+          git fetch
+          git diff origin/gen-ai-test --output /workspace/diff.txt
+          git diff --cached
+          git diff HEAD
+        - cat /workspace/diff.txt
     secretEnv: ['GITHUB_TOKEN']
        
   - id: get the MR ID
@@ -21,7 +30,7 @@ steps:
     args:
       - '-c'
       - |
-        MERGE_REQUEST_IID=$$(friendly-cicd-helper gitlab-mergerequest project data_analytics_golden_demo_p --source $_S_HEAD_BRANCH)
+        MERGE_REQUEST_IID=$$(friendly-cicd-helper gitlab-mergerequest --project data_analytics_golden_demo_p --source gen-ai-test)
         echo "$$MERGE_REQUEST_IID" > /workspace/gitlab_merge_request_iid
     secretEnv: ['GITHUB_TOKEN']
 

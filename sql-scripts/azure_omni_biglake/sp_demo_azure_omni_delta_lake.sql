@@ -137,3 +137,16 @@ SELECT * FROM `${project_id}.${azure_omni_biglake_dataset_name}.rideshare_trips`
 -- Show the count 4521 as compared to the 54521 above
 SELECT COUNT(*) FROM `${project_id}.${azure_omni_biglake_dataset_name}.rideshare_trips`;
 
+CREATE OR REPLACE EXTERNAL TABLE `${project_id}.${azure_omni_biglake_dataset_name}.rideshare_trips_raw_parquet`
+WITH PARTITION COLUMNS 
+  (
+  Rideshare_Vendor_Id INTEGER, 
+  Pickup_Date         DATE-- column order must match the external path
+  )
+WITH CONNECTION `${azure_omni_biglake_connection}`
+OPTIONS (
+format = "PARQUET",
+hive_partition_uri_prefix = "azure://${azure_omni_biglake_adls_name}.blob.core.windows.net/datalake/delta_io/rideshare_trips/",
+uris = ['azure://${azure_omni_biglake_adls_name}.blob.core.windows.net/datalake/delta_io/rideshare_trips/*.snappy.parquet']
+);
+
