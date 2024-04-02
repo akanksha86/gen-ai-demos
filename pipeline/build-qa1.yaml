@@ -16,7 +16,6 @@ steps:
         - '-c'
         - |
           set -e  # Exit on errors
-          git fetch origin
           git diff
           git diff --cached
           git diff HEAD
