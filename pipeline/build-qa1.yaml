@@ -30,7 +30,7 @@ steps:
     args:
       - '-c'
       - |
-        MERGE_REQUEST_IID=$$(friendly-cicd-helper gitlab-mergerequest project data_analytics_golden_demo_p --source $_S_HEAD_BRANCH)
+        MERGE_REQUEST_IID=$$(friendly-cicd-helper gitlab-mergerequest project data_analytics_golden_demo_p --source gen-ai-test)
         echo "$$MERGE_REQUEST_IID" > /workspace/gitlab_merge_request_iid
     secretEnv: ['GITHUB_TOKEN']
 
