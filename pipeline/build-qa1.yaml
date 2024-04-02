@@ -7,12 +7,12 @@ steps:
     
   - id: Fetch latest changes from the master branch
     name: gcr.io/cloud-builders/git
-    args: ['fetch', 'origin', 'master'] 
+    args: ['fetch', 'origin', 'gen-ai-test'] 
     secretEnv: ['GITHUB_TOKEN']
 
   - id: Calculate the diff
     name: gcr.io/cloud-builders/git
-    args: ['diff', 'origin/master']
+    args: ['diff', 'origin/main']
     secretEnv: ['GITHUB_TOKEN']
        
   - id: get the MR ID
