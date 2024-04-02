@@ -9,18 +9,25 @@ steps:
     name: gcr.io/cloud-builders/git
     args: ['fetch', 'origin', 'gen-ai-test'] 
     secretEnv: ['GITHUB_TOKEN']
-
+    
+  - id: calculate git diff
+    name: gcr.io/cloud-builders/git
+    args: ['diff', 'main', 'gen-ai-test'] 
+    secretEnv: ['GITHUB_TOKEN']
+    
+/*
   - id: Calculate the diff
     name: gcr.io/cloud-builders/bash
     args: 
         - '-c'
         - |
           set -e  # Exit on errors
-          git fetch gen-ai-test
+          git fetch latest 'gen-ai-test'
           git diff
           git diff --cached
           git diff HEAD
     secretEnv: ['GITHUB_TOKEN']
+*/
        
   - id: get the MR ID
     name: us-central1-docker.pkg.dev/$PROJECT_ID/da-demo/friendly-cicd-helper
