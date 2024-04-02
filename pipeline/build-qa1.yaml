@@ -10,7 +10,7 @@ steps:
     args: ['fetch', 'origin', 'master'] 
     secretEnv: ['GITHUB_TOKEN']
 
-  - id: Fetch latest changes from the master branch
+  - id: Calculate the diff
     name: gcr.io/cloud-builders/git
     args: ['diff', 'origin/master']
     secretEnv: ['GITHUB_TOKEN']
