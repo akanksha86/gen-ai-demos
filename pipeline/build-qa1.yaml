@@ -18,9 +18,10 @@ steps:
         - |
           set -e  # Exit on errors
           git fetch
-          git diff origin/gen-ai-test
+          git diff origin/gen-ai-test --output /workspace/diff.txt
           git diff --cached
           git diff HEAD
+        - cat /workspace/diff.txt
     secretEnv: ['GITHUB_TOKEN']
        
   - id: get the MR ID
